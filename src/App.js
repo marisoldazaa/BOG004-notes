@@ -5,7 +5,7 @@ import Notes from "./view/Notes";
 import NotFound from "./view/NotFound";
 import Navigator from "../src/components/Navigator";
 import React from "react"; 
-function App() {
+function App() { 
   return (
     <BrowserRouter>
     <Navigator> </Navigator>

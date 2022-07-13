@@ -2,20 +2,15 @@ import React, { Fragment, useEffect, useState } from "react";
 import {
   saveNote,
   getNotes,
-  onDeletNotes,
+  onDeletNotes, 
   updataNotes,
-  onGetNotes,
 } from "../controler/firebase-init";
 import { useForm, Controller } from "react-hook-form";
 import "../view/Notes.css";
-import { updateDoc } from "firebase/firestore";
-import { async } from "@firebase/util";
-/* import { useNavigate } from "react-router-dom"; */
 import "../view/Home.js";
-import { loginWithGoogle } from "../controler/firebase-init";
 
 const NoteMaker = () => {
-  const { register, errors, control, handleSubmit } = useForm();
+  const {control, handleSubmit } = useForm();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [listNotes, setListNotes] = useState([]);
@@ -47,6 +42,14 @@ const NoteMaker = () => {
     getListNotes();
   }, []);
 
+
+   const deleteNotesData = (id) =>{
+    /* setidUpdate(id); */
+    /* console.log( "eliminar ", id); */
+    onDeletNotes(id)
+    getListNotes();
+   }
+
   const editData = (item) => {
     setTitle(item.data.title);
     setDescription(item.data.description);
@@ -55,6 +58,7 @@ const NoteMaker = () => {
     console.log(item.data.title);
     console.log(item.data.description);
   };
+ 
 
   const postUpdatedNote = async (e) => {
     e.preventDefault();
@@ -65,9 +69,10 @@ const NoteMaker = () => {
     } else {
       await updataNotes(oldData, { title: title, description: description });
       getListNotes();
-      //Para reiniciar los campos como vacios luego que de se realizará una publicación
+      //Para reiniciar los campos como vacios luego que de se realizará una publicación incluyendo el ID 
       setTitle("");
       setDescription("");
+      setEditStatusNote(false);
     }
   };
 
@@ -138,7 +143,8 @@ const NoteMaker = () => {
               <button
                 type="button"
                 className="individualNotesDelet"
-                onClick={() => onDeletNotes(item.id)}
+                onClick={()=> deleteNotesData(item.id)}
+                /* onClick={() => onDeletNotes(item.id)} */
               >
                 {" "}
                 <ion-icon

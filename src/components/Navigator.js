@@ -5,7 +5,7 @@ export default function Navigator() {
     return(
     <div>
         <ul>
-            <li>
+            <li> 
                 <NavLink to= '/'>Home</NavLink>
             </li>
         

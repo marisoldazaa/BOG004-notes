@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 
 const GoOutButton = ({goTo}) => {
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
 
 /*   function buttonGoOut(e) {
     e.preventDefault();

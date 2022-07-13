@@ -1,23 +1,16 @@
 import { deepCopy } from "@firebase/util";
 import { initializeApp } from "firebase/app";
-import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged  } from "firebase/auth";
+import { getAuth, GoogleAuthProvider, signInWithPopup} from "firebase/auth";
 import {
   collection,
   deleteDoc,
-  addDoc,
+  addDoc, 
   getFirestore,
-  onSnapshot,
   doc,
-  getDoc,
   getDocs,
   query,
-  snapshot,
-  QuerySnapshot,
-  QueryDocumentSnapshot,
   updateDoc, 
-  UpdateData
 } from "firebase/firestore";
-import { get } from "react-hook-form";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDflIlrlNuzMHmarGH82Fw29b4xOfe1hLk",
@@ -72,7 +65,7 @@ export async function getNotes() {
 export async function onDeletNotes(id) {
   console.log("ID Post eliminado", id);
   const notesDelet = await deleteDoc(doc(db, "postit", id));
-  console.log(notesDelet);
+  console.log("que pasa", notesDelet);
   return notesDelet;
 }
 //actualiza
