@@ -34,8 +34,6 @@ function Home() {
           value="GOOGLE"
           onClick={signInWithGoogle}
         />
-
-     
       </div>
       <div></div>
     </section>

@@ -48,7 +48,6 @@ export { GoogleAuthProvider };
 export const db = getFirestore(app);
 
 export const saveNote = (title, description) => {
-  console.log({ title, description });
   addDoc(collection(db, "postit"), { title, description });
 };
 
@@ -63,34 +62,15 @@ export async function getNotes() {
 }
 
 export async function onDeletNotes(id) {
-  console.log("ID Post eliminado", id);
   const notesDelet = await deleteDoc(doc(db, "postit", id));
-  console.log("que pasa", notesDelet);
   return notesDelet;
 }
+
 //actualiza
-
 export async function updataNotes(item, newObj) {
-  // const notesUpdataNotes = collection(db, "postit");
-/* console.log('refercia: ', notesUpdataNotes) */
-  console.log("new title: ", newObj.title);
-  console.log("new description: ", newObj.description)
-
   await updateDoc(doc(collection(db, "postit"), item.id), {
     title: newObj.title,
     description: newObj.description,
   })
 }
-
-/* // Administrar usuario 
-export const authUser = getAuth();
-onAuthStateChanged(auth, (user) => {
-  if (user) {
-    const uid = user.uid;
-  } else {
-  }
-  console.log("usuario ingresado: ", user.uid)
-});
- */
-
 

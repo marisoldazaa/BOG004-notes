@@ -2,7 +2,7 @@ import React, { Fragment, useEffect, useState } from "react";
 import {
   saveNote,
   getNotes,
-  onDeletNotes, 
+  onDeletNotes,
   updataNotes,
 } from "../controler/firebase-init";
 import { useForm, Controller } from "react-hook-form";
@@ -10,7 +10,7 @@ import "../view/Notes.css";
 import "../view/Home.js";
 
 const NoteMaker = () => {
-  const {control, handleSubmit } = useForm();
+  const { control, handleSubmit } = useForm();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [listNotes, setListNotes] = useState([]);
@@ -21,9 +21,6 @@ const NoteMaker = () => {
   const saveData = (data, e) => {
     e.preventDefault();
     saveNote(title, description);
-    console.log(title);
-    console.log(description);
-
     getListNotes();
     //Para reiniciar los campos como vacios luego que de se realizará una publicación
     setTitle("");
@@ -42,34 +39,26 @@ const NoteMaker = () => {
     getListNotes();
   }, []);
 
-
-   const deleteNotesData = (id) =>{
-    /* setidUpdate(id); */
-    /* console.log( "eliminar ", id); */
-    onDeletNotes(id)
+  const deleteNotesData = (id) => {
+    onDeletNotes(id);
     getListNotes();
-   }
+  };
 
   const editData = (item) => {
     setTitle(item.data.title);
     setDescription(item.data.description);
     setidUpdate(item.id);
     setOldData(item);
-    console.log(item.data.title);
-    console.log(item.data.description);
   };
- 
 
   const postUpdatedNote = async (e) => {
     e.preventDefault();
-    console.log("ITEM: ", oldData);
     setEditStatusNote(true);
     if (!setOldData) {
-      console.log("if");
     } else {
       await updataNotes(oldData, { title: title, description: description });
       getListNotes();
-      //Para reiniciar los campos como vacios luego que de se realizará una publicación incluyendo el ID 
+      //Para reiniciar los campos como vacios luego que de se realizará una publicación incluyendo el ID
       setTitle("");
       setDescription("");
       setEditStatusNote(false);
@@ -78,9 +67,12 @@ const NoteMaker = () => {
 
   return (
     <Fragment>
-      <div className= "notes-dataAll-user">
-        <h4 className= "notes-data-user"> Usuario Conectado: {localStorage.getItem("name")}</h4>
-        <h4 className= "notes-data-user"> {localStorage.getItem("email")}</h4>
+      <div className="notes-dataAll-user">
+        <h4 className="notes-data-user">
+          {" "}
+          Usuario Conectado: {localStorage.getItem("name")}
+        </h4>
+        <h4 className="notes-data-user"> {localStorage.getItem("email")}</h4>
       </div>
       <h3>¡Escribe para no olvidar!</h3>
 
@@ -89,7 +81,7 @@ const NoteMaker = () => {
       >
         <div className="note-maker-space">
           <Controller
-            render={({ field: {onChange} }) => (
+            render={({ field: { onChange } }) => (
               <input
                 placeholder="Titulo"
                 className="titleNotes"
@@ -143,8 +135,7 @@ const NoteMaker = () => {
               <button
                 type="button"
                 className="individualNotesDelet"
-                onClick={()=> deleteNotesData(item.id)}
-                /* onClick={() => onDeletNotes(item.id)} */
+                onClick={() => deleteNotesData(item.id)}
               >
                 {" "}
                 <ion-icon
@@ -163,8 +154,3 @@ const NoteMaker = () => {
 
 export default NoteMaker;
 
-// UseEffect lo usamos cuando el componente necesita se actualizado,
-//casí siempre en la parte de abajo estan recibe otra función con los
-//datos que van cambiando por ese motivo duplique el código en esa parte
-//para que la reciba como actualización si esta vacio solo se ejecuta una vez la función
-//Preferí dejar Getnotes fuera del useffect pues genera una lista infinita
